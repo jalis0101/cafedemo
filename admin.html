@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aura Roast & Brew Management Dashboard — Orders, reservations, revenue.">
+  <title>Dashboard — Aura Roast & Brew</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="admin">
+
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">A</span>
+        <span>Aura Roast</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="menu.html" class="nav-link">Menu</a>
+        <a href="about.html" class="nav-link">Heritage</a>
+        <a href="contact.html" class="nav-link">Reserve</a>
+        <a href="admin.html" class="nav-link active">Dashboard</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="status-indicator open">
+          <span class="status-dot"></span>
+          <span class="status-text">Open Now</span>
+        </div>
+        <button class="btn btn-ghost btn-icon cart-btn" data-action="open-cart" aria-label="Open cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L5 2H2"/>
+          </svg>
+          <span class="cart-badge" style="display: none;">0</span>
+        </button>
+        <button class="mobile-menu-btn" aria-label="Menu" aria-expanded="false"><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-nav" aria-label="Mobile">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="menu.html" class="nav-link">Menu</a>
+    <a href="about.html" class="nav-link">Heritage</a>
+    <a href="contact.html" class="nav-link">Reserve</a>
+    <a href="admin.html" class="nav-link">Dashboard</a>
+  </nav>
+
+  <main style="padding-top: calc(var(--nav-height) + var(--space-12));">
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Management</span>
+          <h1 class="section-title">Dashboard</h1>
+          <p class="section-subtitle">Live cart, pending reservations, and estimated daily revenue. Client-side only.</p>
+        </div>
+
+        <div class="admin-stats">
+          <div class="stat-card">
+            <div class="stat-value" id="stat-revenue">$0</div>
+            <div class="stat-label">Est. Revenue</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-orders">0</div>
+            <div class="stat-label">Active Orders</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-reservations">0</div>
+            <div class="stat-label">Reservations</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-avg">$0</div>
+            <div class="stat-label">Avg. Ticket</div>
+          </div>
+        </div>
+
+        <div class="admin-panels">
+          <div class="admin-panel">
+            <div class="admin-panel-header">
+              <h2 class="admin-panel-title">Live Cart Items</h2>
+            </div>
+            <div class="admin-panel-body" id="admin-orders"></div>
+          </div>
+          <div class="admin-panel">
+            <div class="admin-panel-header">
+              <h2 class="admin-panel-title">Pending Reservations</h2>
+            </div>
+            <div class="admin-panel-body" id="admin-reservations"></div>
+          </div>
+        </div>
+
+        <div class="glass-card mt-8" style="text-align: center;">
+          <p class="text-muted fs-sm mb-4">This dashboard reads from LocalStorage (cart + reservations). Data persists across sessions in this browser.</p>
+          <button class="btn btn-secondary btn-sm" onclick="localStorage.clear(); location.reload();">Clear All Local Data</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="cart-sidebar" aria-label="Shopping cart">
+    <div class="cart-header">
+      <h2 class="fs-xl" style="font-family: var(--font-display);">Your Order</h2>
+      <button class="modal-close" data-action="close-cart" aria-label="Close cart">×</button>
+    </div>
+    <div class="cart-body"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span class="cart-total-value">$0</span>
+      </div>
+      <button class="btn btn-primary w-full" data-action="checkout">Place Order</button>
+    </div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">Aura Roast & Brew</div>
+          <p class="footer-desc">Ultra-luxury specialty café. Dark academia elegance, single-origin mastery.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Explore</h4>
+          <div class="footer-links">
+            <a href="menu.html" class="footer-link">Menu</a>
+            <a href="about.html" class="footer-link">Heritage</a>
+            <a href="contact.html" class="footer-link">Reservations</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Hours</h4>
+          <div class="footer-links">
+            <span class="footer-link">Tue–Sun · 08:00–22:00</span>
+            <span class="footer-link">Closed Mondays</span>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact</h4>
+          <div class="footer-links">
+            <span class="footer-link">14 Library Lane</span>
+            <span class="footer-link">hello@auraroast.cafe</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Aura Roast & Brew</span>
+        <span>Crafted with intention</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container"></div>
+  <script src="js/app.js"></script>
+</body>
+</html>
